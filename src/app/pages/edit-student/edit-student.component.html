@@ -26,6 +26,7 @@
                                         <div
                                             *ngIf="
                                                 myform.get('name').invalid &&
+                                                myform.submitted &&
                                                 (myform.get('name').dirty ||
                                                     myform.get('name').touched)
                                             "
@@ -216,9 +217,9 @@
                                 <div class="col-lg-6 offset-lg-6 pull-right">
                                     <button
                                         type="submit"
-                                        class="btn btn-success"
+                                        class="btn btn-primary"
                                     >
-                                        Create
+                                        Update
                                     </button>
                                 </div>
                             </div>

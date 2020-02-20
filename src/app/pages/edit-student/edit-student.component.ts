@@ -1,27 +1,47 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { Title } from "@angular/platform-browser";
 import { StudentService } from "src/app/services/student.service";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Student } from "src/app/models/Student";
 
 @Component({
-    selector: "app-create-student",
-    templateUrl: "./create-student.component.html",
-    styleUrls: ["./create-student.component.css"]
+    selector: "app-edit-student",
+    templateUrl: "./edit-student.component.html",
+    styleUrls: ["./edit-student.component.css"]
 })
-export class CreateStudentComponent implements OnInit {
+export class EditStudentComponent implements OnInit {
     myform: FormGroup;
+    student: Student;
+    id: any;
 
     constructor(
+        private activeRoute: ActivatedRoute,
         private titleService: Title,
-        private router: Router,
-        private studentService: StudentService
+        private studentService: StudentService,
+        private router: Router
     ) {}
 
     ngOnInit() {
-        this.titleService.setTitle("Create student");
+        this.titleService.setTitle("Edit student");
         this.createForm();
+        this.activeRoute.params.subscribe(params => {
+            if (params["id"]) {
+                this.id = params["id"];
+                this.studentService.getStudent(params["id"]).subscribe(res => {
+                    this.student = res.student;
+                    console.log(this.student);
+                    this.myform.patchValue({
+                        name: this.student.name,
+                        email: this.student.email,
+                        phone: this.student.phone,
+                        address: this.student.address,
+                        roll: this.student.roll,
+                        cls: this.student.cls
+                    });
+                });
+            }
+        });
     }
 
     createForm() {
@@ -53,7 +73,7 @@ export class CreateStudentComponent implements OnInit {
 
     onSubmit() {
         if (this.myform.valid) {
-            const newStudent: Student = {
+            const updatedStudent: Student = {
                 name: this.myform.get("name").value,
                 email: this.myform.get("email").value,
                 phone: this.myform.get("phone").value,
@@ -62,9 +82,11 @@ export class CreateStudentComponent implements OnInit {
                 address: this.myform.get("address").value
             } as Student;
 
-            this.studentService.createStudent(newStudent).subscribe(res => {
-                console.log(res);
-            });
+            this.studentService
+                .updatedStudent(this.id, updatedStudent)
+                .subscribe(res => {
+                    console.log(res);
+                });
             this.myform.reset();
             this.router.navigateByUrl("/");
         }
