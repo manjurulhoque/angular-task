@@ -2,125 +2,103 @@
     <div class="content">
         <div class="row">
             <div class="col-xl-12 mx-auto">
-                <h2 class="content-heading">Create Student</h2>
+                <h2 class="content-heading">Update Student</h2>
                 <a [routerLink]="['/']" class="btn btn-primary float-right mb-3"
                     >Back</a
                 >
-                <form novalidate (ngSubmit)="onSubmit()" [formGroup]="myform">
+                <form
+                    novalidate
+                    (ngSubmit)="f.form.valid && onSubmit()"
+                    #f="ngForm"
+                >
                     <div class="block block-rounded bg-white">
                         <div class="block-content">
                             <div class="row items-push">
                                 <div class="col-lg-6 offset-lg-2">
                                     <div class="form-group">
-                                        <label for="apply-question1"
-                                            >Name</label
-                                        >
+                                        <label for="name">Name</label>
                                         <input
                                             class="form-control"
                                             required
-                                            id="apply-question1"
-                                            name="apply-question1"
-                                            formControlName="name"
+                                            minlength="2"
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            [(ngModel)]="student.name"
+                                            #name="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted && name.invalid
+                                            }"
                                         />
 
                                         <div
-                                            *ngIf="
-                                                myform.get('name').invalid &&
-                                                myform.submitted &&
-                                                (myform.get('name').dirty ||
-                                                    myform.get('name').touched)
-                                            "
-                                            class="alert alert-danger"
+                                            *ngIf="f.submitted && name.invalid"
+                                            class="invalid-feedback"
                                         >
-                                            <div
-                                                *ngIf="
-                                                    myform.get('name').errors
-                                                        .required
-                                                "
-                                            >
-                                                Name is required.
+                                            <div *ngIf="name.errors.required">
+                                                Name is required
                                             </div>
-                                            <div
-                                                *ngIf="
-                                                    myform.get('name').errors
-                                                        .maxlength
-                                                "
-                                            >
-                                                Name cannot be more than 255
-                                                characters long.
-                                            </div>
-                                            <div
-                                                *ngIf="
-                                                    myform.get('name').errors
-                                                        .minlength
-                                                "
-                                            >
-                                                Name must be at least 2
-                                                characters long.
+                                            <div *ngIf="name.errors.minlength">
+                                                Name must be greater than 2
+                                                characters
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input
                                             class="form-control"
                                             type="email"
+                                            email
+                                            required
                                             id="email"
                                             name="email"
-                                            formControlName="email"
+                                            [(ngModel)]="student.email"
+                                            #email="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted && email.invalid
+                                            }"
                                         />
 
                                         <div
-                                            *ngIf="
-                                                myform.get('email').invalid &&
-                                                (myform.get('email').dirty ||
-                                                    myform.get('email').touched)
-                                            "
-                                            class="alert alert-danger"
+                                            *ngIf="f.submitted && email.invalid"
+                                            class="invalid-feedback"
                                         >
-                                            <div
-                                                *ngIf="
-                                                    myform.get('email').errors
-                                                        .required
-                                                "
-                                            >
-                                                Email is required.
+                                            <div *ngIf="email.errors.required">
+                                                Email is required
                                             </div>
-                                            <div
-                                                *ngIf="
-                                                    myform.get('email').errors
-                                                        .email
-                                                "
-                                            >
-                                                Email must be a valid email.
+                                            <div *ngIf="email.errors.email">
+                                                Email must be a valid email
+                                                address
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
                                         <input
                                             class="form-control"
                                             type="text"
                                             id="phone"
+                                            required
                                             name="phone"
-                                            formControlName="phone"
+                                            [(ngModel)]="student.phone"
+                                            #phone="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted && phone.invalid
+                                            }"
                                         />
 
                                         <div
-                                            *ngIf="
-                                                myform.get('phone').invalid &&
-                                                (myform.get('phone').dirty ||
-                                                    myform.get('phone').touched)
-                                            "
-                                            class="alert alert-danger"
+                                            *ngIf="f.submitted && phone.invalid"
+                                            class="invalid-feedback"
                                         >
-                                            <div
-                                                *ngIf="
-                                                    myform.get('phone').errors
-                                                        .required
-                                                "
-                                            >
-                                                phone is required.
+                                            <div *ngIf="phone.errors.required">
+                                                Phone is required
                                             </div>
                                         </div>
                                     </div>
@@ -129,27 +107,28 @@
                                         <input
                                             class="form-control"
                                             type="text"
+                                            required
                                             id="address"
                                             name="address"
-                                            formControlName="address"
+                                            [(ngModel)]="student.address"
+                                            #address="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted &&
+                                                    address.invalid
+                                            }"
                                         />
 
                                         <div
                                             *ngIf="
-                                                myform.get('address').invalid &&
-                                                (myform.get('address').dirty ||
-                                                    myform.get('address')
-                                                        .touched)
+                                                f.submitted && address.invalid
                                             "
-                                            class="alert alert-danger"
+                                            class="invalid-feedback"
                                         >
                                             <div
-                                                *ngIf="
-                                                    myform.get('address').errors
-                                                        .required
-                                                "
+                                                *ngIf="address.errors.required"
                                             >
-                                                address is required.
+                                                Address is required
                                             </div>
                                         </div>
                                     </div>
@@ -159,25 +138,22 @@
                                             class="form-control"
                                             type="text"
                                             id="cls"
+                                            required
                                             name="cls"
-                                            formControlName="cls"
+                                            [(ngModel)]="student.cls"
+                                            #cls="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted && cls.invalid
+                                            }"
                                         />
 
                                         <div
-                                            *ngIf="
-                                                myform.get('cls').invalid &&
-                                                (myform.get('cls').dirty ||
-                                                    myform.get('cls').touched)
-                                            "
-                                            class="alert alert-danger"
+                                            *ngIf="f.submitted && cls.invalid"
+                                            class="invalid-feedback"
                                         >
-                                            <div
-                                                *ngIf="
-                                                    myform.get('cls').errors
-                                                        .required
-                                                "
-                                            >
-                                                Class is required.
+                                            <div *ngIf="cls.errors.required">
+                                                Class is required
                                             </div>
                                         </div>
                                     </div>
@@ -187,25 +163,22 @@
                                             class="form-control"
                                             type="text"
                                             id="roll"
+                                            required
                                             name="roll"
-                                            formControlName="roll"
+                                            [(ngModel)]="student.roll"
+                                            #roll="ngModel"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    f.submitted && roll.invalid
+                                            }"
                                         />
 
                                         <div
-                                            *ngIf="
-                                                myform.get('roll').invalid &&
-                                                (myform.get('roll').dirty ||
-                                                    myform.get('roll').touched)
-                                            "
-                                            class="alert alert-danger"
+                                            *ngIf="f.submitted && roll.invalid"
+                                            class="invalid-feedback"
                                         >
-                                            <div
-                                                *ngIf="
-                                                    myform.get('roll').errors
-                                                        .required
-                                                "
-                                            >
-                                                Roll is required.
+                                            <div *ngIf="roll.errors.required">
+                                                Roll is required
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +190,7 @@
                                 <div class="col-lg-6 offset-lg-6 pull-right">
                                     <button
                                         type="submit"
-                                        class="btn btn-primary"
+                                        class="btn btn-success"
                                     >
                                         Update
                                     </button>

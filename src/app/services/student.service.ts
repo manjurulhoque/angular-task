@@ -26,4 +26,8 @@ export class StudentService {
     updatedStudent(id: any, newStudent: Student): Observable<Student> {
         return this.http.put<Student>(this.BASE_URL + "/" + id, newStudent);
     }
+
+    deleteStudent(id: any) {
+        return this.http.delete(this.BASE_URL + "/" + id);
+    }
 }

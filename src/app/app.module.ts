@@ -1,14 +1,14 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { AllStudentsComponent } from "./pages/all-students/all-students.component";
 import { CreateStudentComponent } from "./pages/create-student/create-student.component";
-import { EditStudentComponent } from './pages/edit-student/edit-student.component';
+import { EditStudentComponent } from "./pages/edit-student/edit-student.component";
 
 @NgModule({
     declarations: [
@@ -18,13 +18,7 @@ import { EditStudentComponent } from './pages/edit-student/edit-student.componen
         CreateStudentComponent,
         EditStudentComponent
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
     providers: [],
     bootstrap: [AppComponent]
 })

@@ -22,4 +22,11 @@ export class AllStudentsComponent implements OnInit {
             console.log(res);
         });
     }
+
+    deleteStudent(id: any) {
+        console.log(id);
+        this.studentService.deleteStudent(id).subscribe(res => {
+            console.log(res);
+        });
+    }
 }

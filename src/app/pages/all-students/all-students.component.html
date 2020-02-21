@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <a [routerLink]="['/students/create/']" class="btn btn-outline-primary mb-2 float-right">Add student</a>
+        <a
+            [routerLink]="['/students/create/']"
+            class="btn btn-outline-primary mb-2 float-right"
+            >Add student</a
+        >
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,8 +24,17 @@
                     <td>{{ student.phone }}</td>
                     <td>{{ student.address }}</td>
                     <td>
-                        <a class="btn btn-success btn-sm mr-2" [routerLink]="['/students/edit/', student.id]">Edit</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        <a
+                            class="btn btn-success btn-sm mr-2"
+                            [routerLink]="['/students/edit/', student.id]"
+                            >Edit</a
+                        >
+                        <button
+                            (click)="deleteStudent(student.id)"
+                            class="btn btn-danger btn-sm"
+                        >
+                            Delete
+                        </button>
                     </td>
                 </tr>
             </tbody>

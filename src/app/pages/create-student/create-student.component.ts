@@ -12,6 +12,7 @@ import { Student } from "src/app/models/Student";
 })
 export class CreateStudentComponent implements OnInit {
     myform: FormGroup;
+    student: any = {};
 
     constructor(
         private titleService: Title,
@@ -21,52 +22,50 @@ export class CreateStudentComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle("Create student");
-        this.createForm();
     }
 
-    createForm() {
-        this.myform = new FormGroup({
-            name: new FormControl("", [
-                Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(255)
-            ]),
-            email: new FormControl("", [Validators.required, Validators.email]),
-            phone: new FormControl("", [
-                Validators.required,
-                Validators.minLength(11)
-            ]),
-            roll: new FormControl("", [
-                Validators.required,
-                Validators.minLength(3)
-            ]),
-            cls: new FormControl("", [
-                Validators.required,
-                Validators.minLength(3)
-            ]),
-            address: new FormControl("", [
-                Validators.required,
-                Validators.minLength(3)
-            ])
-        });
-    }
+    // createForm() {
+    //     this.myform = new FormGroup({
+    //         name: new FormControl("", [
+    //             Validators.required,
+    //             Validators.minLength(2),
+    //             Validators.maxLength(255)
+    //         ]),
+    //         email: new FormControl("", [Validators.required, Validators.email]),
+    //         phone: new FormControl("", [
+    //             Validators.required,
+    //             Validators.minLength(11)
+    //         ]),
+    //         roll: new FormControl("", [
+    //             Validators.required,
+    //             Validators.minLength(3)
+    //         ]),
+    //         cls: new FormControl("", [
+    //             Validators.required,
+    //             Validators.minLength(3)
+    //         ]),
+    //         address: new FormControl("", [
+    //             Validators.required,
+    //             Validators.minLength(3)
+    //         ])
+    //     });
+    // }
 
     onSubmit() {
-        if (this.myform.valid) {
-            const newStudent: Student = {
-                name: this.myform.get("name").value,
-                email: this.myform.get("email").value,
-                phone: this.myform.get("phone").value,
-                roll: this.myform.get("roll").value,
-                cls: this.myform.get("cls").value,
-                address: this.myform.get("address").value
-            } as Student;
+        const newStudent: Student = {
+            name: this.student.name,
+            email: this.student.email,
+            phone: this.student.phone,
+            roll: this.student.roll,
+            cls: this.student.cls,
+            address: this.student.address
+        } as Student;
 
-            this.studentService.createStudent(newStudent).subscribe(res => {
-                console.log(res);
-            });
-            this.myform.reset();
-            this.router.navigateByUrl("/");
-        }
+        console.log(newStudent);
+
+        this.studentService.createStudent(newStudent).subscribe(res => {
+            console.log(res);
+        });
+        this.router.navigateByUrl("/");
     }
 }
