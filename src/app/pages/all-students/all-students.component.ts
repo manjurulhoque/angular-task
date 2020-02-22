@@ -19,12 +19,11 @@ export class AllStudentsComponent implements OnInit {
     getAllStudents() {
         this.studentService.getAllStudents().subscribe(res => {
             this.students = res;
-            console.log(res);
+            //console.log(res);
         });
     }
 
     deleteStudent(id: any) {
-        console.log(id);
         this.studentService.deleteStudent(id).subscribe(res => {
             console.log(res);
         });
